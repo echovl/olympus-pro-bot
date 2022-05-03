@@ -1,0 +1,40 @@
+{
+    "name": "olympus-pro-bot",
+    "version": "0.1.0",
+    "description": "Olympus Pro bond price tracking",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "start": "node ./build/",
+        "dev": "ts-node-dev ./src"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/echovl/olympus-pro-bot.git"
+    },
+    "author": "Alonso Villegas",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/echovl/olympus-pro-bot/issues"
+    },
+    "homepage": "https://github.com/echovl/olympus-pro-bot#readme",
+    "devDependencies": {
+        "@types/big.js": "^6.1.3",
+        "@types/node": "^17.0.30",
+        "@typescript-eslint/eslint-plugin": "^5.21.0",
+        "@typescript-eslint/parser": "^5.21.0",
+        "eslint": "^8.14.0",
+        "eslint-config-prettier": "^8.5.0",
+        "prettier": "^2.6.2",
+        "ts-node": "^10.7.0",
+        "ts-node-dev": "^1.1.8",
+        "typescript": "^4.6.4"
+    },
+    "dependencies": {
+        "big.js": "^6.1.1",
+        "coingecko-api": "^1.0.10",
+        "dotenv": "^16.0.0",
+        "web3": "^1.7.3"
+    }
+}
