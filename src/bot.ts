@@ -87,13 +87,13 @@ export class TelegramBot {
         this.lastPublishedRoi = roi
         console.log("Suscribers: ", JSON.stringify(this.suscribers))
         for (const [index, suscriber] of this.suscribers.entries()) {
-            if (roi >= suscriber.roiTarget) {
-                this.suscribers.splice(index, 1)
-                await this.client.sendMessage(
-                    suscriber.chatId,
-                    `ROI target reached!\nCurrent ROI: ${roi.toFixed(2)}%`
-                )
-            }
+            if (roi < suscriber.roiTarget) continue
+
+            this.suscribers.splice(index, 1)
+            await this.client.sendMessage(
+                suscriber.chatId,
+                `ROI target reached!\nCurrent ROI: ${roi.toFixed(2)}%`
+            )
         }
     }
 }

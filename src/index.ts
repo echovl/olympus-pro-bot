@@ -9,6 +9,7 @@ config()
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN as string
 const FANTOM_RPC_URL = process.env.FANTOM_RPC_URL as string
+const UPDATE_RATE = process.env.UPDATE_RATE as string
 
 async function calculateCurrentRoi(priceFeed: PriceFeed): Promise<number> {
     const marketPrice = await priceFeed.getDeusPrice()
@@ -31,7 +32,7 @@ async function run() {
     const priceFeed = new PriceFeed(web3)
     const app = Express()
 
-    const job = cron.schedule("*/1 * * * *", async () => {
+    const job = cron.schedule(`*/${UPDATE_RATE} * * * *`, async () => {
         const block = await web3.eth.getBlockNumber()
         const roi = await calculateCurrentRoi(priceFeed)
 
