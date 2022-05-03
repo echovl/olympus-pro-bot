@@ -9,6 +9,12 @@ config()
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN as string
 const FANTOM_RPC_URL = process.env.FANTOM_RPC_URL as string
 
+async function calculateCurrentRoi(priceFeed: PriceFeed): Promise<number> {
+    const marketPrice = await priceFeed.getDeusPrice()
+    const bondPrice = await priceFeed.getBondPrice()
+    return (100 * (marketPrice - bondPrice)) / bondPrice
+}
+
 async function run() {
     const web3 = new Web3(FANTOM_RPC_URL)
     const bot = new TelegramBot(TELEGRAM_BOT_TOKEN)
@@ -20,9 +26,7 @@ async function run() {
     app.post("/start", (_, res) => {
         suscription.subscribe().on("data", async (blockHeader) => {
             if (blockHeader.number) {
-                const marketPrice = await priceFeed.getDeusPrice()
-                const bondPrice = await priceFeed.getBondPrice()
-                const roi = (100 * (marketPrice - bondPrice)) / bondPrice
+                const roi = await calculateCurrentRoi(priceFeed)
 
                 console.log(`ROI: ${roi}`)
 
