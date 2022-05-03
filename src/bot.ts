@@ -55,11 +55,17 @@ export class TelegramBot {
         if (!match || !match[1]) {
             return this.client.sendMessage(
                 chatId,
-                "Please specify the desired ROI target."
+                "Please specify the desired ROI target"
             )
         }
 
         const roiTarget = parseFloat(match[1])
+        if (isNaN(roiTarget)) {
+            return this.client.sendMessage(
+                chatId,
+                "ROI target should be a number"
+            )
+        }
 
         const suscriber = this.suscribers.find((s) => s.chatId === chatId)
         if (!suscriber) {
