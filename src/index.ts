@@ -17,7 +17,16 @@ async function calculateCurrentRoi(priceFeed: PriceFeed): Promise<number> {
 }
 
 async function run() {
-    const web3 = new Web3(FANTOM_RPC_URL)
+    const wss = new Web3.providers.WebsocketProvider(FANTOM_RPC_URL, {
+        reconnect: {
+            auto: true,
+            delay: 5000,
+            maxAttempts: 5,
+            onTimeout: false,
+        },
+    })
+
+    const web3 = new Web3(wss)
     const bot = new TelegramBot(TELEGRAM_BOT_TOKEN)
     const priceFeed = new PriceFeed(web3)
     const app = Express()
