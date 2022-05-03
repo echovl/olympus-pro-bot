@@ -73,6 +73,8 @@ export class TelegramBot {
                 chatId,
                 roiTarget: roiTarget,
             })
+        } else {
+            suscriber.roiTarget = roiTarget
         }
 
         return this.client.sendMessage(
@@ -83,6 +85,7 @@ export class TelegramBot {
 
     async publish(roi: number) {
         this.lastPublishedRoi = roi
+        console.log("Suscribers: ", JSON.stringify(this.suscribers))
         for (const [index, suscriber] of this.suscribers.entries()) {
             if (roi >= suscriber.roiTarget) {
                 this.suscribers.splice(index, 1)
