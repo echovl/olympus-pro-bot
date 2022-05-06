@@ -7,6 +7,7 @@ import cron from "node-cron"
 
 config()
 
+const APP_PORT = 3000
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN as string
 const FANTOM_RPC_URL = process.env.FANTOM_RPC_URL as string
 const UPDATE_RATE = process.env.UPDATE_RATE as string
@@ -51,7 +52,9 @@ async function run() {
         res.send("Done")
     })
 
-    app.listen(3000)
+    app.listen(APP_PORT, () =>
+        console.log(`Server running at port ${APP_PORT}`)
+    )
 }
 
-run()
+run().catch(console.error)
